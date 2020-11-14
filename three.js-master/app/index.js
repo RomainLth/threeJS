@@ -5,7 +5,7 @@ let camera, scene, renderer, controls;
 const fieldOfView = 75;
 const aspect = window.innerWidth / window.innerHeight;
 const nearClip = 0.1;
-const farClip = 1000;
+const farClip = 2000;
  let towers = [];
  let walls = [];
  let bricks = [];
@@ -23,7 +23,6 @@ const farClip = 1000;
   function init() {
     // SCENE
     scene = new THREE.Scene();
-
     // CAMERA
     camera = new THREE.PerspectiveCamera(fieldOfView, aspect, nearClip, farClip)
     // RENDU
@@ -41,7 +40,7 @@ const farClip = 1000;
      type : 'sphere',
      dimension : [45, 32, 32],
      texture : 'textures/moon.jpg',
-     position: [0, 0, 0]
+     position: [-200, 400, 400]
   })
 
       let wallNorth = MeshGenerator({
@@ -125,7 +124,7 @@ const farClip = 1000;
       type: "cylinder",
       dimension: [18, 18, 50, 30],
       texture : 'textures/brick.png',
-      position: [-65, 10, -100]
+      position: [-70, 10, -100]
     })
 
     let wallTower6 = MeshGenerator({
@@ -147,7 +146,7 @@ const farClip = 1000;
       type : "cone",
       dimension : [20, 30, 30],
       texture : 'textures/toit.jpg',
-      position: [-65, 50, -100]
+      position: [-70, 50, -100]
     })
 
     let roofSouthWest = MeshGenerator({
@@ -157,14 +156,68 @@ const farClip = 1000;
       position: [10, 50, -100]
     })
 
+    let roofInnerSouthWest = MeshGenerator({
+      type : "cone",
+      dimension : [22, 30, 30],
+      texture : 'textures/toit.jpg',
+      position: [40, 50, -40]
+    })
+
+    let roofInnerSouthEast = MeshGenerator({
+      type : "cone",
+      dimension : [22, 30, 30],
+      texture : 'textures/toit.jpg',
+      position: [-95, 50, -40]
+    })
+
+    let roofInnerNorthWest = MeshGenerator({
+      type : "cone",
+      dimension : [22, 30, 30],
+      texture : 'textures/toit.jpg',
+      position: [40, 50, 55]
+    })
+
+    let roofInnerNorthEast = MeshGenerator({
+      type : "cone",
+      dimension : [22, 30, 30],
+      texture : 'textures/toit.jpg',
+      position: [-95, 50, 55]
+    })
+
     roofs.push(roofSouthEast);
     roofs.push(roofSouthWest);
+    roofs.push(roofInnerSouthWest);
+    roofs.push(roofInnerSouthEast);
+    roofs.push(roofInnerNorthWest);
+    roofs.push(roofInnerNorthEast);
+
+    //château
+
+    let castle = MeshGenerator({
+      type : "cylinder",
+      dimension : [40, 40, 80, 50],
+      texture : "textures/brick.png",
+      position : [-27, 20, 0]
+    })
+
+    towers.push(castle);
+
+    //Toit Château
+
+    let roofCastle = MeshGenerator({
+      type : "cone",
+      dimension : [50, 50, 50],
+      texture : "textures/toit.jpg",
+      position : [-27, 80, 0]
+    })
+
+    roofs.push(roofCastle);
 
     //PORTAIL
 
     let portal = MeshGenerator({
       type : "box",
-      dimension: [39, 47, 5],
+      dimension: [50, 47, 5],
       texture : 'textures/portal.jpg',
       position: [-27, 10, -100]
     })
@@ -517,6 +570,91 @@ const farClip = 1000;
     bricks.push(brickSouth5);
     bricks.push(brickSouth6);
 
+    // Tours du fort
+
+    let innerWallTowerSouthWest = MeshGenerator({
+      type: "cylinder",
+      dimension: [20, 20, 50, 30],
+      texture : 'textures/brick.png',
+      position: [40, 10, -40]
+    })
+
+    let innerWallTowerSouthEast = MeshGenerator({
+      type: "cylinder",
+      dimension: [20, 20, 50, 30],
+      texture : 'textures/brick.png',
+      position: [-95, 10, -40]
+    })
+
+    let innerWallTowerNorthEast = MeshGenerator({
+      type: "cylinder",
+      dimension: [20, 20, 50, 30],
+      texture : 'textures/brick.png',
+      position: [-95, 10, 55]
+    })
+
+    let innerWallTowerNorthWest = MeshGenerator({
+      type: "cylinder",
+      dimension: [20, 20, 50, 30],
+      texture : 'textures/brick.png',
+      position: [40, 10, 55]
+    })
+
+
+    towers.push(innerWallTowerSouthWest);
+    towers.push(innerWallTowerSouthEast);
+    towers.push(innerWallTowerNorthEast);
+    towers.push(innerWallTowerNorthWest);
+
+    // Château intérieur
+
+    let innerWallNorth = MeshGenerator({
+      type : "box",
+      dimension : [150, 20, 20],
+      texture : 'textures/brick.png',
+      position: [-30, 0, 60]
+    })
+
+
+    let innerWallEast = MeshGenerator({
+      type : "box",
+      dimension : [120, 20, 20],
+      texture : 'textures/brick.png',
+      position: [-95, 0, 10],
+      rotation: [90, 0, 90]
+    })
+
+
+    let innerWallWest = MeshGenerator({
+      type : "box",
+      dimension : [120, 20, 20],
+      texture : 'textures/brick.png',
+      position: [40, 0, 10],
+      rotation: [90, 0, 90]
+    })
+
+    let innerWallSouthEast = MeshGenerator({
+      type : "box",
+      dimension : [50, 20, 20],
+      texture : 'textures/brick.png',
+      position: [-80, 0, -40]
+    })
+
+    let innerWallSouthWest = MeshGenerator({
+      type : "box",
+      dimension : [50, 20, 20],
+      texture : 'textures/brick.png',
+      position: [25, 0, -40]
+    })
+
+
+
+
+    walls.push(innerWallNorth);
+    walls.push(innerWallEast);
+    walls.push(innerWallWest);
+    walls.push(innerWallSouthEast);
+    walls.push(innerWallSouthWest);
 
 
 
